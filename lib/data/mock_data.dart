@@ -1,0 +1,112 @@
+import '../models/assignment.dart';
+import '../models/session.dart';
+
+class MockDataProvider {
+  // Sample assignments
+  static final List<Assignment> assignments = [
+    Assignment(
+      id: '1',
+      title: 'ASSIGNMENT',
+      dueDate: DateTime.now().add(const Duration(days: 2)),
+      courseName: 'Introduction to Flutter',
+      priority: 'High',
+    ),
+    Assignment(
+      id: '2',
+      title: 'Quiz 1',
+      dueDate: DateTime.now().add(const Duration(days: 3)),
+      courseName: 'Mobile Development',
+      priority: 'Medium',
+    ),
+    Assignment(
+      id: '3',
+      title: 'Assignment 2',
+      dueDate: DateTime.now().add(const Duration(days: 5)),
+      courseName: 'Introduction to Flutter',
+      priority: 'High',
+    ),
+    Assignment(
+      id: '4',
+      title: 'Group Project - Mobile App',
+      dueDate: DateTime.now().add(const Duration(days: 14)),
+      courseName: 'Final Project',
+      priority: 'High',
+    ),
+  ];
+
+  // Sample sessions
+  static final List<Session> sessions = [
+    Session(
+      id: '1',
+      title: 'ASSIGNMENT',
+      date: DateTime.now(),
+      startTime: '09:00 AM',
+      endTime: '11:00 AM',
+      location: 'Room 101',
+      sessionType: SessionType.classSession,
+      wasAttended: true,
+    ),
+    Session(
+      id: '2',
+      title: 'Quiz 1',
+      date: DateTime.now(),
+      startTime: '02:00 PM',
+      endTime: '03:30 PM',
+      location: 'Lab 204',
+      sessionType: SessionType.masterySession,
+      wasAttended: null,
+    ),
+    Session(
+      id: '3',
+      title: 'Assignment 2',
+      date: DateTime.now(),
+      startTime: '04:00 PM',
+      endTime: '05:00 PM',
+      location: 'Library',
+      sessionType: SessionType.studyGroup,
+      wasAttended: null,
+    ),
+    Session(
+      id: '4',
+      title: 'Weekly Team Meeting',
+      date: DateTime.now().add(const Duration(days: 1)),
+      startTime: '10:00 AM',
+      endTime: '11:00 AM',
+      location: 'Meeting Room A',
+      sessionType: SessionType.pslMeeting,
+      wasAttended: null,
+    ),
+  ];
+
+  // Get today's sessions
+  static List<Session> getTodaysSessions() {
+    return sessions.where((session) => session.isToday()).toList();
+  }
+
+  // Get assignments due within 7 days
+  static List<Assignment> getUpcomingAssignments() {
+    return assignments.where((assignment) => assignment.isDueWithinWeek()).toList();
+  }
+
+  // Get pending assignments count
+  static int getPendingAssignmentsCount() {
+    return assignments.where((assignment) => !assignment.isCompleted).length;
+  }
+
+  // Calculate attendance percentage
+  static double getAttendancePercentage() {
+    final attendedSessions = sessions.where((s) => s.wasAttended == true).length;
+    final recordedSessions = sessions.where((s) => s.wasAttended != null).length;
+    
+    if (recordedSessions == 0) return 100.0;
+    return (attendedSessions / recordedSessions) * 100;
+  }
+
+  // Get academic week number (assuming semester started Jan 6, 2026)
+  static int getAcademicWeek() {
+    final semesterStart = DateTime(2026, 1, 6);
+    final now = DateTime.now();
+    final difference = now.difference(semesterStart).inDays;
+    return (difference / 7).ceil();
+  }
+}

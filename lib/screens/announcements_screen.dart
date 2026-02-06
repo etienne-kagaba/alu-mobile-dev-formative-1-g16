@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/colours.dart'; 
 
 class Announcement {
   final String title;
@@ -14,14 +15,9 @@ class Announcement {
   });
 }
 
-class AnnouncementsScreen extends StatefulWidget {
+class AnnouncementsScreen extends StatelessWidget {
   const AnnouncementsScreen({super.key});
 
-  @override
-  State<AnnouncementsScreen> createState() => _AnnouncementsScreenState();
-}
-
-class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
   final List<Announcement> _announcements = [
     Announcement(
       title: "Reminder: Project Deadlines Extended",
@@ -44,7 +40,8 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
     ),
     Announcement(
       title: "Office Hours strictly from 7 am to 4 PM",
-      description: "Please note that office hours will be strictly from 7 am to 4 PM starting next week. Plan accordingly.",
+      description:
+          "Please note that office hours will be strictly from 7 am to 4 PM starting next week. Plan accordingly.",
       date: "Feb 10",
       type: "Update",
     ),
@@ -53,61 +50,153 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Announcements'),
-        backgroundColor: const Color(0xFF0A1733),
-        foregroundColor: Colors.white,
-      ),
-      body: Container(
-        color: const Color(0xFF0A1733),
-        child: ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: _announcements.length,
-          itemBuilder: (context, index) {
-            final ann = _announcements[index];
-            Color badgeColor = Colors.greenAccent;
-            if (ann.type == "Reminder") badgeColor = Colors.orangeAccent;
-            if (ann.type == "Event") badgeColor = Colors.blueAccent;
-
-            return Card(
-              color: Colors.white.withOpacity(0.08),
-              margin: const EdgeInsets.only(bottom: 12),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(16),
-                leading: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: badgeColor.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    ann.type,
-                    style: TextStyle(color: badgeColor, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                title: Text(
-                  ann.title,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 4),
-                    Text(ann.description, style: const TextStyle(color: Colors.white70)),
-                    const SizedBox(height: 6),
-                    Text(ann.date, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 1)); // simulate refresh
+          // You can later add real logic here (e.g. reload from storage)
+        },
+        color: kAccentGold,
+        backgroundColor: kSurfaceDark,
+        child: _announcements.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.notifications_off_outlined,
+                      size: 80,
+                      color: kTextTertiary,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      "No announcements yet",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: kTextSecondary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Check back later for university updates",
+                      style: TextStyle(color: kTextTertiary),
+                    ),
                   ],
                 ),
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Opened: ${ann.title}")),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: _announcements.length,
+                itemBuilder: (context, index) {
+                  final ann = _announcements[index];
+
+                  Color badgeColor = kUpdateColor;
+                  switch (ann.type) {
+                    case "Reminder":
+                      badgeColor = kReminderColor;
+                      break;
+                    case "Event":
+                      badgeColor = kEventColor;
+                      break;
+                    case "Update":
+                      badgeColor = kUpdateColor;
+                      break;
+                  }
+
+                  return Card(
+                    elevation: 2,
+                    shadowColor: Colors.black.withOpacity(0.3),
+                    color: kSurfaceDark,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(16),
+                      leading: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: badgeColor.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          ann.type,
+                          style: TextStyle(
+                            color: badgeColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        ann.title,
+                        style: const TextStyle(
+                          color: kTextPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 6),
+                          Text(
+                            ann.description,
+                            style: const TextStyle(color: kTextSecondary),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            ann.date,
+                            style: const TextStyle(
+                              color: kTextTertiary,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(
+                        Icons.chevron_right,
+                        color: kTextTertiary,
+                        size: 28,
+                      ),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: kSurfaceDark,
+                            title: Text(
+                              ann.title,
+                              style: const TextStyle(
+                                color: kTextPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            content: Text(
+                              ann.description,
+                              style: const TextStyle(color: kTextSecondary),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text(
+                                  "Close",
+                                  style: TextStyle(color: kAccentGold),
+                                ),
+                              ),
+                            ],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 },
               ),
-            );
-          },
-        ),
       ),
     );
   }

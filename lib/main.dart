@@ -23,7 +23,6 @@ class AluStudentPlatformApp extends StatelessWidget {
           brightness: Brightness.dark,
           primary: const Color(0xFF0D1B2A),
           secondary: const Color(0xFFF5A623),
-          background: const Color(0xFF0D1B2A),
           surface: const Color(0xFF1B263B),
           error: const Color(0xFFC41E3A),
         ),
@@ -49,7 +48,7 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = const [
+  final List<Widget> _screens = [
     DashboardScreen(),
     AssignmentsScreen(),
     ScheduleScreen(),

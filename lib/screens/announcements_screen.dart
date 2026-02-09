@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/colours.dart'; 
+import '../constants/colours.dart';
 
 class Announcement {
   final String title;

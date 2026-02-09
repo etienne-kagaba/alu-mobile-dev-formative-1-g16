@@ -16,7 +16,7 @@ class Announcement {
 }
 
 class AnnouncementsScreen extends StatelessWidget {
-  const AnnouncementsScreen({super.key});
+  AnnouncementsScreen({super.key});
 
   final List<Announcement> _announcements = [
     Announcement(

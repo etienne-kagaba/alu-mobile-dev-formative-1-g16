@@ -32,7 +32,7 @@ class FormContainerWidget extends StatelessWidget {
         color: kSurfaceDark,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.white.withOpacity(0.08),
+          color: Colors.white.withValues(alpha: 0.08),
           width: 1,
         ),
       ),
@@ -78,12 +78,12 @@ class FormContainerWidget extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                      color: Colors.white.withOpacity(0.15), width: 1),
+                      color: Colors.white.withValues(alpha: 0.15), width: 1),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                      color: Colors.white.withOpacity(0.15), width: 1),
+                      color: Colors.white.withValues(alpha: 0.15), width: 1),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -139,13 +139,13 @@ class FormContainerWidget extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? kAccentGold.withOpacity(0.18)
+                          ? kAccentGold.withValues(alpha: 0.18)
                           : kPrimaryDark,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: isSelected
                             ? kAccentGold
-                            : Colors.white.withOpacity(0.10),
+                            : Colors.white.withValues(alpha: 0.10),
                         width: 1,
                       ),
                     ),

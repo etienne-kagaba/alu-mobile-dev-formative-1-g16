@@ -116,7 +116,7 @@ class DashboardScreen extends StatelessWidget {
                     child: Text(
                       'No sessions scheduled for today',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
+                        color: Colors.white.withValues(alpha: 0.6),
                         fontSize: 14,
                       ),
                     ),
@@ -161,7 +161,7 @@ class DashboardScreen extends StatelessWidget {
                     child: Text(
                       'No assignments due within the next 7 days',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
+                        color: Colors.white.withValues(alpha: 0.6),
                         fontSize: 14,
                       ),
                     ),

@@ -8,19 +8,47 @@ This Flutter application addresses the common challenge ALU students face in man
 
 ## Features Implemented
 
-### Home Dashboard ✅
+### 1. Home Dashboard ✅
+The dashboard serves as the central hub for the student's academic life, displaying:
 - **Date & Academic Week**: Displays current date and calculated academic week number
-- **Today's Sessions**: Lists all scheduled academic sessions for today
+- **Today's Sessions**: Lists all scheduled academic sessions for the day
 - **Upcoming Assignments**: Shows assignments due within the next 7 days
 - **Attendance Tracking**: Displays overall attendance percentage with visual warning when below 75%
-- **Quick Stats**: Summary counts for active projects, pending assignments, and more
+- **Quick Stats**: Summary counts for active projects, pending assignments, and code sectors
 - **ALU Branding**: Professional interface with official ALU colors (Dark Navy, Gold, White)
 
-### Navigation
-- Bottom navigation bar with 3 tabs:
-  - **Dashboard** - Main overview screen
-  - **Assignments** - Assignment management (placeholder)
-  - **Schedule** - Session planning (placeholder)
+### 2. Assignment Management System (Planned)
+Users will be able to:
+- **Create new assignments** by entering:
+  - Assignment title (required text field)
+  - Due date (using date picker)
+  - Course name (text input)
+  - Priority level (optional: High/Medium/Low)
+- **View all assignments** in a list sorted by due date
+- **Mark assignments as completed** with a check action
+- **Remove assignments** from the list
+- **Edit assignment details** if changes are needed
+
+### 3. Academic Session Scheduling (Planned)
+Users will be able to:
+- **Schedule new academic sessions** by entering:
+  - Session title (required text field)
+  - Date (using date picker)
+  - Start time (using time picker)
+  - End time (using time picker)
+  - Location (optional text field)
+  - Session type (select from: Class, Mastery Session, Study Group, PSL Meeting)
+- **View weekly schedule** displaying all sessions
+- **Record attendance** for each session using Present/Absent toggle
+- **Remove scheduled sessions** when cancelled
+- **Modify session details** if arrangements change
+
+### 4. Attendance Tracking (Planned)
+The application must:
+- **Calculate attendance percentage** automatically based on recorded attendance
+- **Display attendance metrics** clearly on the dashboard
+- **Provide alerts** when attendance drops below 75%
+- **Maintain attendance history** for reference
 
 ## Technology Stack
 
